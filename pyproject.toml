@@ -1,0 +1,56 @@
+[project]
+name = "sky-tonight-concierge"
+version = "0.1.0"
+description = "Tells you what you can see in tonight's sky from any place."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+authors = [{ name = "Christos Savva" }]
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "langchain>=1.4.7",
+    "langchain-core>=1.7.2",
+    "langchain-mcp-adapters>=0.3.2",
+    "langgraph>=1.2.18",
+    "mcp>=1.30.0",
+    "pydantic>=2.14.2",
+    "python-dotenv>=1.2.4",
+    "skyfield>=1.55",
+    "typer>=0.27.3",
+]
+
+[project.scripts]
+sky-tonight = "sky_tonight.cli:main"
+sky-tonight-mcp = "sky_tonight.mcp_server:main"
+
+[project.optional-dependencies]
+openai = [
+    "langchain-openai>=1.7.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sky_tonight"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1",
+    "respx>=0.23.1",
+    "ruff>=0.17.3",
+]
