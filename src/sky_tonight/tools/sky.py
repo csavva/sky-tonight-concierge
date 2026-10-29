@@ -24,6 +24,8 @@ PLANETS = {
 MIN_ALTITUDE_DEG = 10.0
 # Civil twilight ends at -6 degrees: bright planets are easy to spot from then on.
 DARK_SUN_ALTITUDE_DEG = -6.0
+# Faintest magnitude visible to the unaided eye under dark skies (Uranus is borderline).
+NAKED_EYE_MAGNITUDE = 6.0
 
 _COMPASS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 
@@ -59,6 +61,7 @@ def visible_planets(lat: float, lon: float, when: datetime) -> PlanetsReport:
                 direction=compass_direction(az.degrees),
                 magnitude=round(magnitude, 1),
                 visible=dark and alt.degrees > MIN_ALTITUDE_DEG,
+                naked_eye=magnitude <= NAKED_EYE_MAGNITUDE,
             )
         )
 

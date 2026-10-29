@@ -40,6 +40,14 @@ def test_visible_planets_excludes_low_and_set_planets():
     assert [p.name for p in planets.values() if p.visible] == ["Venus"]
 
 
+def test_visible_planets_flags_naked_eye_brightness():
+    planets = planets_by_name(visible_planets(*LISBON, EVENING))
+
+    assert planets["Venus"].naked_eye
+    assert planets["Uranus"].naked_eye  # magnitude 5.8, borderline but within the limit
+    assert not planets["Neptune"].naked_eye  # magnitude 7.8 needs a telescope
+
+
 def test_visible_planets_nothing_visible_in_daylight():
     noon = datetime(2026, 6, 15, 13, 0, tzinfo=ZoneInfo(LISBON_TZ))
     report = visible_planets(*LISBON, noon)

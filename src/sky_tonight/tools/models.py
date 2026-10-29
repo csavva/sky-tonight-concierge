@@ -20,6 +20,7 @@ class PlanetPosition(BaseModel):
     direction: str
     magnitude: float | None
     visible: bool
+    naked_eye: bool  # bright enough to see without binoculars from a dark site
 
 
 class PlanetsReport(BaseModel):
