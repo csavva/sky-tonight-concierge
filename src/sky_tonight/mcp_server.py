@@ -8,7 +8,8 @@ from sky_tonight.tools import geocode as geocode_tool
 from sky_tonight.tools import sky
 from sky_tonight.tools.models import Location, MoonInfo, PlanetsReport
 
-mcp = FastMCP("sky-tonight")
+# WARNING keeps per-request INFO logs off stderr, so the CLI output stays clean.
+mcp = FastMCP("sky-tonight", log_level="WARNING")
 
 
 @mcp.tool()
